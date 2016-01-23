@@ -40,16 +40,27 @@
             android:textAlignment="center"
             android:gravity="center"/>
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/person1"
+            android:layout_below="@android:id/text1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="43dp"
+            android:src="@drawable/person1"
+            android:contentDescription="person_1_image" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/name1"
             android:hint="@string/name_1"
+            android:layout_below="@+id/person1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="44dp"
             android:maxLines="1"
-            android:inputType="text"
-            android:layout_below="@android:id/text1" />
+            android:inputType="text"/>
 
         <EditText
             android:layout_width="wrap_content"

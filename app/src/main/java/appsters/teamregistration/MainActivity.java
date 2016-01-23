@@ -1,6 +1,7 @@
 package appsters.teamregistration;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -151,15 +152,18 @@ public class MainActivity extends Activity {
                         String[] y = s.split(" ");
 
                         if(y[1].equals("1,")){
-                            textView.setText(R.string.final_alert_1);
+                            DialogFragment newFragment = new FinalDialog();
+                            newFragment.show(getFragmentManager(), "success");
                         }
                         else if ((y[1].equals("0,")) && y[4].equals("already")){
 
-                            textView.setText(R.string.final_alert_2);
+                            DialogFragment newFragment = new FinalDialog2();
+                            newFragment.show(getFragmentManager(), "already");
                         }
                         else {
 
-                            textView.setText(R.string.final_alert_3);
+                            DialogFragment newFragment = new FinalDialog3();
+                            newFragment.show(getFragmentManager(), "already");
                         }
 
 

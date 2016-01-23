@@ -40,16 +40,25 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"/>
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/team_image"
+            android:src="@drawable/team"
+            android:layout_below="@android:id/text1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="43dp" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/team"
             android:hint="@string/team_name"
+            android:layout_below="@+id/team_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="44dp"
-            android:inputType="text"
-            android:layout_below="@android:id/text1" />
+            android:inputType="text"/>
 
 
 
