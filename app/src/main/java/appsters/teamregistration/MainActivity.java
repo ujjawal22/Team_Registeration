@@ -1,6 +1,7 @@
 package appsters.teamregistration;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -25,6 +26,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static appsters.teamregistration.Credential_Rules.isempty;
+import static appsters.teamregistration.Credential_Rules.isentryno;
+import static appsters.teamregistration.Credential_Rules.isname;
 
 public class MainActivity extends Activity {
 
@@ -139,55 +144,84 @@ public class MainActivity extends Activity {
 
                 //instantiate the RequestQueue
                 requestQueue = Volley.newRequestQueue(this);
+                if(s1.equals("")){
+                    DialogFragment newFragment = new InvalidDialog7();
+                    newFragment.show(getFragmentManager(), "tn");
+                    mPager.setCurrentItem(0);
+                }else if((isname(s2)&&isname(s4)&&isentryno(s3)&&isentryno(s5)&&isname(s6)&&isentryno(s7))||(isname(s2)&&isname(s4)&&isentryno(s3)&&isentryno(s5)&&isempty(s6)&&isempty(s7))) {
+                    //request a string response from provided URL.
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //Display the first 50 characters of the response string.
+                            //textView.setText("Response is :" + response.substring(45, 66));
+                            String s = response.toString();
+                            Log.i(TAG, "Response is : " + s);
+                            String[] y = s.split(" ");
 
-                //request a string response from provided URL.
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //Display the first 50 characters of the response string.
-                        //textView.setText("Response is :" + response.substring(45, 66));
-                        String s = response.toString();
-                        Log.i(TAG, "Response is : " + s);
-                        String[] y = s.split(" ");
+                            if (y[1].equals("1,")) {
+                                DialogFragment newFragment = new FinalDialog();
+                                newFragment.show(getFragmentManager(), "success");
+                            } else if ((y[1].equals("0,")) && y[4].equals("already")) {
 
-                        if(y[1].equals("1,")){
-                            textView.setText(R.string.final_alert_1);
+                                DialogFragment newFragment = new FinalDialog2();
+                                newFragment.show(getFragmentManager(), "already");
+                            } else {
+
+                                DialogFragment newFragment = new FinalDialog3();
+                                newFragment.show(getFragmentManager(), "dnp");
+                                textView.setText("");
+                            }
+
+
                         }
-                        else if ((y[1].equals("0,")) && y[4].equals("already")){
-
-                            textView.setText(R.string.final_alert_2);
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            textView.setText("That didn't work!");
                         }
-                        else {
-
-                            textView.setText(R.string.final_alert_3);
+                    }) {
+                        @Override
+                        protected Map<String, String> getParams() {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("teamname", s1);
+                            params.put("entry1", s3);
+                            params.put("name1", s2);
+                            params.put("entry2", s5);
+                            params.put("name2", s4);
+                            params.put("entry3", s7);
+                            params.put("name3", s6);
+                            return params;
                         }
+                    };
 
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        textView.setText("That didn't work!");
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("teamname", s1);
-                        params.put("entry1", s3);
-                        params.put("name1", s2);
-                        params.put("entry2", s5);
-                        params.put("name2", s4);
-                        params.put("entry3", s7);
-                        params.put("name3", s6);
-
-                        return params;
-                    }
-                };
-
-                //Add the request to the RequestQueue
-                requestQueue.add(stringRequest);
-
+                    //Add the request to the RequestQueue
+                    requestQueue.add(stringRequest);
+                } else if (!isname(s2)){
+                    DialogFragment newFragment = new InvalidDialog();
+                    newFragment.show(getFragmentManager(), "n1");
+                    mPager.setCurrentItem(1);
+                }  else if (!isentryno(s3)) {
+                    DialogFragment newFragment = new InvalidDialog4();
+                    newFragment.show(getFragmentManager(), "en1");
+                    mPager.setCurrentItem(1);
+                } else if (!isname(s4)) {
+                    DialogFragment newFragment = new InvalidDialog2();
+                    newFragment.show(getFragmentManager(), "n2");
+                    mPager.setCurrentItem(2);
+                }else if (!isentryno(s5)) {
+                    DialogFragment newFragment = new InvalidDialog5();
+                    newFragment.show(getFragmentManager(), "en2");
+                    mPager.setCurrentItem(2);
+                } else if (!isname(s6)) {
+                    DialogFragment newFragment = new InvalidDialog3();
+                    newFragment.show(getFragmentManager(), "n3");
+                    mPager.setCurrentItem(3);
+                }else if (!isentryno(s7)) {
+                    DialogFragment newFragment = new InvalidDialog6();
+                    newFragment.show(getFragmentManager(), "en3");
+                    mPager.setCurrentItem(3);
+                }
                 return true;
         }
 

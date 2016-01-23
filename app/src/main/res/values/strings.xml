@@ -41,10 +41,10 @@
     <string name="team_name">Enter the Team Name</string>
     <string name="name_1">Enter Name of Member 1</string>
     <string name="name_2">Enter Name of Member 2</string>
-    <string name="name_3">Enter Name of Member 3</string>
+    <string name="name_3">Enter Name of Member 3 <i>(Optional)</i></string>
     <string name="entryno_1">Enter Entry Number of Member 1</string>
     <string name="entryno_2">Enter Entry Number of Member 2</string>
-    <string name="entryno_3">Enter Entry Number of Member 3</string>
+    <string name="entryno_3">Enter Entry Number of Member 3 <i>(Optional)</i></string>
     <string name="title_team_name">Team Name</string>
     <string name="title_member">Member <xliff:g id="step_number">%1$d</xliff:g></string>
 
