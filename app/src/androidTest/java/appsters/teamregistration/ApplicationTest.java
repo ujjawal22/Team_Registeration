@@ -1,4 +1,4 @@
-package com.example.edel.team_registeration;
+package appsters.teamregistration;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
